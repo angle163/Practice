@@ -1,0 +1,61 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Data.SqlClient" %>
+
+<script runat="server">
+protected void Page_Load(object sender, EventArgs e)
+{
+    if (!IsPostBack)
+    {
+        BindContact();
+    }
+}
+
+private void BindContact()
+{
+    string connStr = "server=.;database=AdventureWorks;Integrated Security=SSPI;";
+    string queryString = "SELECT TOP 10 ContactID,FirstName,LastName,EmailAddress FROM Person.Contact";
+    var conn = new SqlConnection(connStr);
+    var adapter = new SqlDataAdapter(queryString, conn);
+    var table = new DataTable("Contact");
+    adapter.Fill(table);
+    gvContact.AutoGenerateColumns = false;
+    gvContact.DataBinding += BindingContactGridView;
+    gvContact.DataSource = table;
+    gvContact.DataBind();
+}
+
+private void BindingContactGridView(object o, EventArgs e)
+{
+    var gv = o as GridView;
+    var fieldId = new BoundField { HeaderText = "Id", DataField = "ContactID", Visible = false };
+    var fieldFirstName = new BoundField { HeaderText = "名字", DataField = "FirstName" };
+    var fieldLastName = new BoundField { HeaderText = "姓氏", DataField = "LastName" };
+
+    var button = new ButtonField();
+    button.Text = "删除";
+    button.HeaderText = "操作";
+    gv.Columns.Add(fieldId);
+    gv.Columns.Add(fieldFirstName);
+    gv.Columns.Add(fieldLastName);
+    gv.Columns.Add(button);
+}
+</script>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>AdventrueWorks Contact</title>
+	<link href="<%=ResolveUrl("~/Content/Styles/Site.css") %>" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="container">
+    	<h3>AdventrueWorks Contact</h3>
+		<asp:GridView ID="gvContact" runat="server">
+		</asp:GridView>
+    </div>
+    </form>
+</body>
+</html>
