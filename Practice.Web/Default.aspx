@@ -21,6 +21,12 @@
     <div id="container">
 		<h1>Index Page</h1>
 			<div class="row has_children">
+				<span>GridView Sample</span>
+				<div class="row">
+					<a href="Essay/GridVeiwDemo.aspx" title="GridVeiw Demo">GridVeiw Demo</a>
+				</div>
+			</div>
+			<div class="row has_children">
 				<span>Attribute Sampe</span>
 				<div class="row">
 					<a href="Essay/AttributeDemo.aspx" title="Attribute Demo">Attribute Demo</a>
