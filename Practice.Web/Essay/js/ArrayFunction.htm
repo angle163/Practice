@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>JavaScript Function Sample</title>
+	<script type="text/javascript" src=""></script>
+</head>
+	<body>
+		<h1>JavaScript Function Sample</h1>
+		<script type="text/javascript">
+		    (function () {
+		    	var arr = new Array(5);
+		    	var i;
+		    	//空语句，给arr数组初始赋值
+		    	for (i = 0; i < arr.length; arr[i] = i++);
+		    	output('arr的原始值 [', arr.join(','), ']');
+		    	outputln();
+		    })();
+		</script>
+	</body>
+</html>

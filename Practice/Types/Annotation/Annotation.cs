@@ -101,7 +101,7 @@ namespace Practice.Types.Annotation
             get { return _conditionType; }
         }
     }
-    
+
     /// <summary>
     /// Specifies assertion type. If the assertion method argument statisifes the condition, then the execution continues.
     ///      Otherwise, execution is assumed to be halted.

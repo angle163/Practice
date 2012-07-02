@@ -5,6 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practice.Web", "Practice.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practice", "Practice\Practice.csproj", "{00551246-7998-4DF7-B7D8-1FFB4C397995}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Third-Party Libs", "Third-Party Libs", "{3005D47A-40B4-429B-8084-D4E316A2DDEA}"
+	ProjectSection(SolutionItems) = preProject
+		Libraries\nunit.framework.dll = Libraries\nunit.framework.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
