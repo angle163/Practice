@@ -1,8 +1,11 @@
+using System;
+
 namespace Practice.Types.Flag
 {
     /// <summary>
     /// User flag manipulation class from the DB.
     /// </summary>
+    [Serializable]
     public class UserFlag : FlagBase
     {
         /// <summary>
@@ -18,7 +21,7 @@ namespace Practice.Types.Flag
         /// </summary>
         /// <param name="flag">The flag.</param>
         public UserFlag(Flag flag)
-            : this((int) flag)
+            : this((int)flag)
         {
         }
 
@@ -27,7 +30,7 @@ namespace Practice.Types.Flag
         /// </summary>
         /// <param name="bitValue">The bit value.</param>
         public UserFlag(object bitValue)
-            : this((int) bitValue)
+            : this((int)bitValue)
         {
         }
 
@@ -50,6 +53,62 @@ namespace Practice.Types.Flag
             : base(bits)
         {
         }
+        #region Flags Enumeration
+
+        /// <summary>
+        /// User for bit comparisons.
+        /// </summary>
+        [Flags]
+        public enum Flag
+        {
+            /// <summary>
+            /// None flag.
+            /// </summary>
+            None = 0,
+
+            /// <summary>
+            /// The is host admin.
+            /// </summary>
+            IsHostAdmin = 1,
+
+            /// <summary>
+            /// The is approved.
+            /// </summary>
+            IsApproved = 2,
+
+            /// <summary>
+            /// The is guest.
+            /// </summary>
+            IsGuest = 4,
+
+            /// <summary>
+            /// The is captcha excluded.
+            /// </summary>
+            IsCaptchaExcluded = 8,
+
+            /// <summary>
+            /// The is active excluded.
+            /// </summary>
+            IsActiveExcluded = 16,
+
+            /// <summary>
+            /// The Daylight Saving Time is enabled.
+            /// </summary>
+            IsDaylightSavingTime = 32,
+
+            /// <summary>
+            /// Is Dirty data flag.
+            /// </summary>
+            IsDirty = 64
+
+            /* for futrue use
+             *  xxxx = 128
+             *  xxxx = 256
+             *  xxxx = 512
+             *  */
+        }
+
+        #endregion
 
         #region Single Flag (can be 32 of them)
 

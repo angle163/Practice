@@ -8,15 +8,16 @@ using Practice.Types.Annotation;
 namespace Practice.Types.Flag
 {
     /// <summary>
-    /// Abstract class as a foundation for various flag implementations.
+    /// FlagBase的摘要:
+    ///     各种标识实现基础的抽象类。
     /// </summary>
     [Serializable]
-    public class FlagBase
+    public abstract class FlagBase
     {
         #region Constants and Fields
 
         /// <summary>
-        /// Integer value stores up to 64 flag/bit.
+        /// 标识位的<see cref="int"/>值，最多记录64个位。
         /// </summary>
         protected int _bitValue;
 
@@ -25,8 +26,8 @@ namespace Practice.Types.Flag
         #region Constructors and Destructros
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlagBase"/> class.
-        ///     Create new instance and initialize it with value of bitValue parameter.
+        /// 初始化<see cref="FlagBase"/>类的新实例，
+        /// 并将它的标识位参数设置为默认值。
         /// </summary>
         public FlagBase()
             : this(0)
@@ -34,22 +35,22 @@ namespace Practice.Types.Flag
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlagBase"/> class.
-        ///     Create new instance and initialize it with value of bitValue parameter.
+        /// 初始化<see cref="FlagBase"/>类的新实例，
+        /// 并用指定的<see cref="int"/>参数设置其标识位参数的值。
         /// </summary>
-        /// <param name="bitValue">Initialize integer value.</param>
+        /// <param name="bitValue"> 初始化标识位的<see cref="int"/>类型值。 </param>
         public FlagBase(int bitValue)
         {
             _bitValue = bitValue;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlagBase"/> class.
-        ///     Create new instance and initialize it with bits set accoding to param array.
+        /// 初始化<see cref="FlagBase"/>类的新实例，
+        /// 并根据指定的布尔值数组设置其标识位参数的值。
         /// </summary>
         /// <param name="bits">
-        /// Boolean values to initialize class with. If their number is less than 32, remaining bits
-        /// are set to false. If greater than 32 value is specified, excess values are ignored.
+        /// 新标识位参数的所表示布尔值数组。
+        ///      若数组长度小于32，其余位将设置为<c>false</c>；若数组长度大于32，多余的元素会别忽略。
         /// </param>
         public FlagBase([NotNull] params bool[] bits)
             : this(0)
@@ -68,7 +69,7 @@ namespace Practice.Types.Flag
         #region Properties
 
         /// <summary>
-        /// Gets or sets integer value of flag.
+        /// 获取或设置标识位的<see cref="int"/>值。
         /// </summary>
         public int BitValue
         {
@@ -81,11 +82,12 @@ namespace Practice.Types.Flag
         #region Indexsers
 
         /// <summary>
-        /// Gets or sets bit at position specified by index.
+        /// 获取或设置在标志位中指定索引位置的标识所表示的布尔值。
         /// </summary>
-        /// <param name="index"> Zero-based index of bit to get or set. </param>
+        /// <param name="index"> 基于0的索引。 </param>
         /// <returns>
-        /// Boolean value indicating whether bit at position specified by index is set or not.
+        /// 返回指定在标志位中指定索引位置的标识所表示的布尔值。
+        ///     若从未设置过指定索引位置的标识所表示的布尔值，返回<c>false</c>.
         /// </returns>
         public bool this[int index]
         {
@@ -98,33 +100,29 @@ namespace Practice.Types.Flag
         #region Public Methods
 
         /// <summary>
-        /// Gets boolean indicating whether bit on bitShift position in bitValue integer is set or not.
+        /// 获取指定标识位中指定位数的标识所表示的布尔值。
         /// </summary>
-        /// <param name="bitValue">Integer value.</param>
-        /// <param name="bitShift"> Zero-based position of bit to get. </param>
-        /// <returns>
-        /// Returns boolean indicating whether bit at bitShift position is set or not.
-        /// </returns>
-        private bool GetBitAsBool(int bitValue, int bitShift)
+        /// <param name="bitValue"> 标识位的<see cref="int"/>值。 </param>
+        /// <param name="bitShift"> 基于0的位数。 </param>
+        /// <returns> 返回布尔值。 </returns>
+        public static bool GetBitAsBool(int bitValue, int bitShift)
         {
             if (bitShift > 63)
             {
                 bitShift %= 63;
             }
 
-            return ((bitValue >> bitShift) & 1) == 1;
+            return ((bitValue >> bitShift) & 0x1) == 1;
         }
 
         /// <summary>
-        /// Sets or unsets bit of bitValue integer at position specified by bitShift, depending on value parameter.
+        /// 将指定布尔值，设置指定标识位中指定位数所在标识所表示的布尔值。
         /// </summary>
-        /// <param name="bitValue">Integer value.</param>
-        /// <param name="bitShift"> Zero-based position of bit to set. </param>
-        /// <param name="value"> New boolean value of bit. </param>
-        /// <returns>
-        /// Returns new integer value with bit at position specified by bitShift parameter set to value.
-        /// </returns>
-        private int SetBitFromBool(int bitValue, int bitShift, bool value)
+        /// <param name="bitValue">  标识位的<see cref="int"/>值。 </param>
+        /// <param name="bitShift"> 基于0的位数。 </param>
+        /// <param name="value"> 新标识所表示的布尔值。 </param>
+        /// <returns> 返回新标志位的<see cref="int"/>值。 </returns>
+        public static int SetBitFromBool(int bitValue, int bitShift, bool value)
         {
             if (bitShift > 63)
             {
@@ -134,7 +132,7 @@ namespace Practice.Types.Flag
             if (GetBitAsBool(bitValue, bitShift) != value)
             {
                 // toggle that value using XOR.
-                bitValue ^= 1 << bitShift;
+                bitValue ^= 0x1 << bitShift;
             }
 
             return bitValue;
@@ -142,14 +140,25 @@ namespace Practice.Types.Flag
 
 
         /// <summary>
-        /// Converts a Flag Enum to the associated index value.
+        /// 转换标识枚举为标志位中标志的索引。
+        ///     正确索引范围在0～63之间，若返回-1表示转换失败。
         /// </summary>
-        /// <param name="theEnum">The Flag Enum.</param>
-        /// <returns>The enum to index.</returns>
-        public int EnumToIndex([NotNull] Enum theEnum)
+        /// <param name="theEnum"> 标识枚举。 </param>
+        /// <returns> 若转换成功则返回索引，否则返回-1。 </returns>
+        public static int EnumToIndex([NotNull] Enum theEnum)
         {
             CodeContract.ArgumentNotNull(theEnum, "theEnum");
-            return Convert.ToInt32(Math.Sqrt(Convert.ToInt32(theEnum))) - 1;
+
+            int flagBit = Convert.ToInt32(theEnum);
+            for (int i = 0; i < 63; i++)
+            {
+                if (((flagBit >> i) & 0x1) == 1)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         #endregion

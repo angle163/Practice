@@ -33,6 +33,12 @@
 				</div>
 			</div>
 			<div class="row has_children">
+				<span>User Flag Demo</span>
+				<div class="row">
+					<a href="Essay/UserFlagDemo.aspx" title="User Flag Demo">User Flag Demo</a>
+				</div>
+			</div>
+			<div class="row has_children">
 				<span>Attribute Sampe</span>
 				<div class="row">
 					<a href="Essay/AttributeDemo.aspx" title="Attribute Demo">Attribute Demo</a>

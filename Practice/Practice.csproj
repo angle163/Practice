@@ -68,6 +68,8 @@
     <Compile Include="Extension\HaveComponentRegistryExtension.cs" />
     <Compile Include="Extension\NameValueCollectionExtension.cs" />
     <Compile Include="Extension\RegistrationBuilderExtension.cs" />
+    <Compile Include="Extension\Transform.cs" />
+    <Compile Include="Types\Handler\DBConnInfoMessageEventArgs.cs" />
     <Compile Include="Types\Handler\DBConnInfoMessageEventHandler.cs" />
     <Compile Include="Types\Interface\IDataTableResultFilter.cs" />
     <Compile Include="Types\Interface\IDbAccess.cs" />
@@ -93,7 +95,6 @@
     </Compile>
     <Compile Include="Types\Constant\Constant.cs" />
     <Compile Include="Types\FakeLifetimeScope.cs" />
-    <Compile Include="Types\Flag\Flag.cs" />
     <Compile Include="Types\Flag\FlagBase.cs" />
     <Compile Include="Types\Flag\UserFlag.cs" />
     <Compile Include="Types\Interface\IBackgroundTask.cs" />
